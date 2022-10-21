@@ -1,43 +1,68 @@
-let noteTitle = document.getElementById("note_title");
-let noteContent = document.getElementById("note_content");
+let noteTitleBox = document.getElementById("note_title");
+let noteContentBox = document.getElementById("note_content");
+let noteTitle, noteContent;
 let addNote = document.getElementById("add_note");
 let container = document.getElementById("Container");
+let list = [];
+let i = 0;
 
-function toPascalCase(s){
-    return s.slice(0, 1).toUpperCase() + s.slice(1).toLowerCase();
-}
 
-function displayNote(){
-    let note = `
-    <div class = "notes">
-        <div class="nav_function">
-            <p id="listedNoteTitle">${toPascalCase(noteTitle.value)}</p>
-            <div class="functions">
-                <div id="edit"><img src="./images/edit.png" /></div>
-                <div id="delete"><img src="./images/delete.png" /></div>
-            </div>
-        </div>
 
-        <div id="listedNoteContent">${noteContent.value}</div>
-    </div>`;
-    container.innerHTML += note;
-    noteContent.value = "";
-    noteTitle.value = "";
-}
+addNote.addEventListener("click", function () {
+    noteTitle = noteTitleBox.value;
+    noteContent = noteContentBox.value;
 
-addNote.addEventListener("click", function(e){
-    let titleLength = noteTitle.value.length;
-    let contentLength = noteContent.value.length;
-    
-    if(titleLength === 0 || contentLength === 0){
+    let titleLength = noteTitle.length;
+    let contentLength = noteContent.length;
+
+    if (titleLength === 0 || contentLength === 0) {
         window.alert("Please fill all details");
-    }else{
-        displayNote();
+    } else {
+        addToList(noteTitle, noteContent);
     }
 })
 
 
+function toPascalCase(s) {
+    return s.slice(0, 1).toUpperCase() + s.slice(1).toLowerCase();
+}
 
-editNote.addEventListener("click", function(e){
-    console.log(e)
-})
+function addToList(noteTitle, noteContent) {
+    let note = {
+        title: toPascalCase(noteTitle),
+        desc: noteContent
+    }
+
+    list.push(note);
+    i++;
+
+    addToScreen(list);
+    noteTitleBox.value = "";
+    noteContentBox.value = "";
+    editAndDelete();
+}
+
+function addToScreen(list) {
+    console.log(list);
+
+    container.innerHTML += `<div class = "notes">
+            <div class="nav_function">
+                <p id="listedNoteTitle">${list[i - 1].title}</p>
+                <div class="functions">
+                    <div id="edit"><img src="./images/edit.png" /></div>
+                    <div id="delete"><img src="./images/delete.png" /></div>
+                </div>
+            </div>
+            <div id="listedNoteContent">${list[i - 1].desc}</div>
+        </div>`
+}
+
+async function editAndDelete(){
+    let editNote = document.getElementById("edit");
+    let deleteNote = document.getElementById("delete");
+
+    
+
+
+}
+
