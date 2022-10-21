@@ -35,3 +35,9 @@ addNote.addEventListener("click", function(e){
         displayNote();
     }
 })
+
+
+
+editNote.addEventListener("click", function(e){
+    console.log(e)
+})
