@@ -3,13 +3,17 @@ let noteContentBox = document.getElementById("note_content");
 let noteTitle, noteContent;
 let addNote = document.getElementById("add_note");
 let container = document.getElementById("Container");
-let list = [];
-let i = 0;
+let i = localStorage.length;
 
-
+window.addEventListener("DOMContentLoaded", function () {
+    for (var j = 0; j < localStorage.length; j++) {
+        var item = JSON.parse(localStorage.getItem(j))
+        addToScreen(item.title, item.desc, j);
+    }
+})
 
 addNote.addEventListener("click", function () {
-    noteTitle = noteTitleBox.value;
+    noteTitle = toPascalCase(noteTitleBox.value);
     noteContent = noteContentBox.value;
 
     let titleLength = noteTitle.length;
@@ -18,51 +22,47 @@ addNote.addEventListener("click", function () {
     if (titleLength === 0 || contentLength === 0) {
         window.alert("Please fill all details");
     } else {
-        addToList(noteTitle, noteContent);
+        addToLocalStorage(noteTitle, noteContent);
     }
+    noteTitleBox.value = "";
+    noteContentBox.value = "";
 })
-
 
 function toPascalCase(s) {
     return s.slice(0, 1).toUpperCase() + s.slice(1).toLowerCase();
 }
 
-function addToList(noteTitle, noteContent) {
+function addToLocalStorage(noteTitle, noteContent) {
     let note = {
-        title: toPascalCase(noteTitle),
+        title: noteTitle,
         desc: noteContent
     }
-
-    list.push(note);
+    addToScreen(noteTitle, noteContent, i);
+    localStorage.setItem(i, JSON.stringify(note));
     i++;
-
-    addToScreen(list);
-    noteTitleBox.value = "";
-    noteContentBox.value = "";
-    editAndDelete();
 }
 
-function addToScreen(list) {
-    console.log(list);
-
-    container.innerHTML += `<div class = "notes">
+function addToScreen(noteTitle, noteContent, i) {
+    console.log(i)
+    container.innerHTML +=
+        `<div class = "notes">
             <div class="nav_function">
-                <p id="listedNoteTitle">${list[i - 1].title}</p>
+                <p id="listedNoteTitle">${noteTitle}</p>
                 <div class="functions">
-                    <div id="edit"><img src="./images/edit.png" /></div>
-                    <div id="delete"><img src="./images/delete.png" /></div>
+                    <div id="${i}" onclick="editNote(this.id)"><img src="./images/edit.png" /></div>
+                    <div id="${i}" onclick = "deleteNote(this.id)"><img src="./images/delete.png" /></div>
                 </div>
             </div>
-            <div id="listedNoteContent">${list[i - 1].desc}</div>
+            <div id="listedNoteContent">${noteContent}</div>
         </div>`
+}   
+
+
+function deleteNote(id){
+    localStorage.removeItem(id);
+    updateLocalStorage();
 }
 
-async function editAndDelete(){
-    let editNote = document.getElementById("edit");
-    let deleteNote = document.getElementById("delete");
-
-    
-
-
+function editNote(id){
+    console.log(id)
 }
-
