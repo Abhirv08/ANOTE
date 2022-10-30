@@ -119,3 +119,7 @@ img:hover{
     font-size: 0.8rem;
     overflow-y: hidden;
 }
+
+.hide_button{
+    display: none;
+}
