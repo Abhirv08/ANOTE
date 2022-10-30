@@ -61,21 +61,21 @@ nav{
 }
 
 #Container{
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 32% 32% 32%;
+    grid-gap: 2%;
     margin: auto;
     padding: 1rem;
+    width: 82.5%;
 }
 
 .notes{
     border: 1px solid rgb(216, 216, 216);
-    width: 30%;
     height: 10rem;
-    margin-left: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 4%;
     display: flex;
     flex-direction: column;
-    padding: 1%;
+    padding: 2%;
     border-radius: 5px;
 }
 
@@ -103,13 +103,13 @@ nav{
     align-items: center;
 }
 
-#edit img, #delete img{
+img{
     cursor: pointer;
     margin: 0 0.5rem;
     width: 24px;
 }
 
-#edit img:hover, #delete img:hover{
+img:hover{
     transform: scale(1.05);
 }
 
@@ -118,4 +118,8 @@ nav{
     color: rgb(131, 130, 130);
     font-size: 0.8rem;
     overflow-y: hidden;
+}
+
+.hide_button{
+    display: none;
 }
