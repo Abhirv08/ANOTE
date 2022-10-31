@@ -15,10 +15,6 @@ function toPascalCase(s) {
 
 function getNotes() {
     const notes = JSON.parse(localStorage.getItem("ANOTE-notes")) || [];
-
-    // return notes.sort((a, b) => {
-    //     return new DataTransfer(b.updated) > new Date(a.updated) ? 1 : -1;
-    // });
     return notes;
 }
 
@@ -44,6 +40,12 @@ addNote.addEventListener("click", () => {
 // Display all notes available to the user
 function displayNotes() {
     const notes = getNotes();
+    if(notes.length === 0){
+        container.classList.remove("with-notes");
+        container.innerHTML = "Nothing to show. Please add your notes...";
+        return ;
+    }
+    container.classList.add("with-notes");
     let allNotes = "";
 
     for (let i = 0; i < notes.length; i++) {
