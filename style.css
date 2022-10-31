@@ -60,13 +60,17 @@ nav{
     background-color: #0b5ed7;
 }
 
-#Container{
-    display: grid;
-    grid-template-columns: 32% 32% 32%;
-    grid-gap: 2%;
+#Container{    
     margin: auto;
     padding: 1rem;
     width: 82.5%;
+    font-size: x-large;
+}
+
+.with-notes{
+    display: grid;
+    grid-template-columns: 32% 32% 32%;
+    grid-gap: 2%;
 }
 
 .notes{
